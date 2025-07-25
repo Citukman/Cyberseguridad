@@ -1,5 +1,5 @@
 {
-  "name": "cybershield-pro-ultimate",
+  "name": "cybershield-pro-v4",
   "version": "1.0.0",
   "private": true,
   "scripts": { "dev": "vite", "build": "vite build", "preview": "vite preview" },
