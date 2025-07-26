@@ -1,68 +1,121 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import Particles from 'react-tsparticles';
-import ContactForm from './components/ContactForm';
-import PaymentButton from './components/PaymentButton';
+import { motion } from "framer-motion";
+import { useState } from "react";
+import ContactForm from "./componentes/ui/ContactForm";
+import PaymentButton from "./componentes/ui/PaymentButton";
+
+// Chat Widget simple
+function ChatWidget() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="fixed bottom-6 right-6 z-50">
+      {open ? (
+        <div className="w-72 h-96 bg-white dark:bg-gray-800 shadow-xl rounded-lg p-4 flex flex-col">
+          <div className="flex justify-between items-center mb-2">
+            <h3 className="font-bold text-gray-800 dark:text-white">💬 Chat Soporte</h3>
+            <button
+              onClick={() => setOpen(false)}
+              className="text-red-500 font-bold"
+            >
+              ✕
+            </button>
+          </div>
+          <div className="flex-1 overflow-y-auto text-sm text-gray-700 dark:text-gray-300 mb-2">
+            <p><strong>Agente:</strong> ¡Hola! ¿En qué podemos ayudarte hoy?</p>
+          </div>
+          <input
+            type="text"
+            placeholder="Escribe tu mensaje..."
+            className="border rounded px-2 py-1 text-sm text-gray-800 dark:text-gray-100 dark:bg-gray-700"
+          />
+        </div>
+      ) : (
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          onClick={() => setOpen(true)}
+          className="bg-blue-600 hover:bg-blue-700 text-white rounded-full w-16 h-16 shadow-2xl flex items-center justify-center text-3xl"
+        >
+          💬
+        </motion.button>
+      )}
+    </div>
+  );
+}
 
 export default function App() {
+  const [darkMode, setDarkMode] = useState(true);
+
   return (
-    <div className="relative min-h-screen bg-gray-900 text-white overflow-hidden">
-      <Particles options={{ background:{color:{value:'#111827'}}, fpsLimit:60,
-        interactivity:{events:{onClick:{enable:true,mode:'push'},onHover:{enable:true,mode:'repulse'},resize:true},
-        modes:{push:{quantity:4},repulse:{distance:100,duration:0.4}}},
-        particles:{color:{value:'#38bdf8'},links:{color:'#38bdf8',distance:150,enable:true,opacity:0.5,width:1},
-        collisions:{enable:true},move:{direction:'none',enable:true,outModes:{default:'bounce'},speed:2},
-        number:{density:{enable:true,area:800},value:60},opacity:{value:0.5},shape:{type:'circle'},size:{value:{min:1,max:5}}},
-        detectRetina:true }}/>
-      <motion.div className="relative z-10 flex flex-col items-center justify-start min-h-screen px-4 space-y-20 pt-10">
-        <motion.section initial={{opacity:0,y:40}} whileInView={{opacity:1,y:0}} transition={{duration:0.8}} viewport={{once:true}} className="text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-cyan-400 mb-6 animate-pulse">
-            Bienvenido a CyberShield Pro
+    <div className={darkMode ? "dark bg-gray-900 text-white" : "bg-white text-gray-900"}>
+      <div className="min-h-screen p-6 transition-colors duration-500">
+        {/* Botón de Dark/Light */}
+        <div className="flex justify-end mb-4">
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="px-4 py-2 bg-gray-800 text-white rounded-lg shadow hover:bg-gray-700 dark:bg-yellow-400 dark:text-black dark:hover:bg-yellow-300"
+          >
+            {darkMode ? "☀️ Modo Claro" : "🌙 Modo Oscuro"}
+          </button>
+        </div>
+
+        {/* Hero */}
+        <header className="flex flex-col items-center text-center mb-12">
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-4">
+            🚀 CyberShield Pro
           </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto">
-            Soluciones de ciberseguridad avanzadas para proteger tu negocio.
+          <p className="text-lg md:text-xl mb-8 max-w-xl">
+            Protección total para tu negocio digital con tecnología de vanguardia.
           </p>
-        </motion.section>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg shadow-lg text-white font-bold"
+          >
+            Contáctanos
+          </motion.button>
+        </header>
 
-        <motion.section initial={{opacity:0,y:40}} whileInView={{opacity:1,y:0}} transition={{duration:0.8}} viewport={{once:true}} className="max-w-4xl mx-auto space-y-6">
-          <h2 className="text-3xl font-bold text-yellow-400">¿Quiénes somos?</h2>
-          <p>Somos un equipo apasionado por la ciberseguridad, dedicado a brindar protección digital y tranquilidad a nuestros clientes.</p>
-        </motion.section>
+        {/* Servicios */}
+        <section className="grid md:grid-cols-3 gap-6 mb-12">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="p-6 bg-gray-200 dark:bg-gray-800 rounded-xl shadow-md"
+          >
+            🔒 <h2 className="text-xl font-bold mb-2">Seguridad Web</h2>
+            <p>Auditorías, protección avanzada y defensa ante ataques.</p>
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="p-6 bg-gray-200 dark:bg-gray-800 rounded-xl shadow-md"
+          >
+            💳 <h2 className="text-xl font-bold mb-2">Pagos Seguros</h2>
+            <p>Integración de pasarelas y pagos automáticos.</p>
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="p-6 bg-gray-200 dark:bg-gray-800 rounded-xl shadow-md"
+          >
+            ⚡ <h2 className="text-xl font-bold mb-2">Optimización</h2>
+            <p>Rendimiento al máximo con nuestras soluciones a medida.</p>
+          </motion.div>
+        </section>
 
-        <motion.section initial={{opacity:0,y:40}} whileInView={{opacity:1,y:0}} transition={{duration:0.8}} viewport={{once:true}} className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold text-green-400 mb-4">Nuestros Servicios</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="p-4 bg-gray-800 rounded-xl shadow">🔐 Análisis de vulnerabilidades</div>
-            <div className="p-4 bg-gray-800 rounded-xl shadow">🛡️ Protección contra malware</div>
-            <div className="p-4 bg-gray-800 rounded-xl shadow">⚡ Respuesta a incidentes</div>
-          </div>
-        </motion.section>
+        {/* Formulario de contacto */}
+        <section className="mb-12">
+          <ContactForm />
+        </section>
 
-        <motion.section initial={{opacity:0,y:40}} whileInView={{opacity:1,y:0}} transition={{duration:0.8}} viewport={{once:true}} className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold text-pink-400 mb-4">Planes y Precios</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="p-4 bg-gray-800 rounded-xl shadow">
-              <h3 className="text-xl font-bold mb-2">Básico</h3>
-              <p className="mb-2">$99 / mes</p>
-            </div>
-            <div className="p-4 bg-gray-800 rounded-xl shadow">
-              <h3 className="text-xl font-bold mb-2">Profesional</h3>
-              <p className="mb-2">$199 / mes</p>
-            </div>
-            <div className="p-4 bg-gray-800 rounded-xl shadow">
-              <h3 className="text-xl font-bold mb-2">Empresarial</h3>
-              <p className="mb-2">$299 / mes</p>
-            </div>
-          </div>
-        </motion.section>
+        {/* Botón de pago */}
+        <section className="mb-12">
+          <PaymentButton />
+        </section>
 
-        <PaymentButton />
-        <ContactForm />
+        {/* Footer */}
+        <footer className="text-center text-sm text-gray-500 dark:text-gray-400 mt-16">
+          © {new Date().getFullYear()} CyberShield Pro. Todos los derechos reservados.
+        </footer>
+      </div>
 
-        <footer className="mt-10 text-sm text-gray-400">© 2025 CyberShield Pro. Todos los derechos reservados.</footer>
-      </motion.div>
-
-      <a href="https://wa.me/5219999999999?text=Hola!%20Quiero%20más%20información%20de%20CyberShield%20Pro" className="whatsapp-button">💬</a>
+      {/* Chat flotante */}
+      <ChatWidget />
     </div>
   );
 }
